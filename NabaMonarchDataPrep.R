@@ -29,5 +29,5 @@ naba_monarch <- naba_monarch %>%
   mutate(Date = as.Date(Date, format = "%m/%e/%y"))
 
 # Output to File
-write.csv(x = naba_monarch, file = "data/naba_monarch.csv", row.names = FALSE)
+write.csv(x = naba_monarch, file = "data/naba-monarch-raw.csv", row.names = FALSE)
 
