@@ -33,13 +33,28 @@ derhamtime <- derhamfall %>%
 # Output to Data Folder
 write.csv(x = derhamtime, file = "data/derham-monarch-timeseries.csv", row.names = FALSE)
 
-# Graph time series data by site
+# Graph time series data by site and all sites
 # Plot controling for effort
 derhamcorrect <- derhamtime %>%
   mutate(monarchspercount = totalmonarchs/countsdone)
 library(ggplot2)
 
-derhamplot <- ggplot(data = derhamcorrect, 
+derhamplotbysite <- ggplot(data = derhamcorrect, 
                      mapping = aes(x = year, y = monarchspercount, color = sitename)) +
   geom_line()
-derhamplot
+derhamplotbysite
+ggsave(plot = derhamplotbysite, filename = "output/derhamyearbysite.png")
+
+# Plot across sites by year
+derhamtimeyear <- derhamfall %>%
+  group_by(year) %>%
+  summarize(totalmonarchs = sum(observedmonarch), 
+            countsdone = n()) %>%
+  mutate(monarchspercount = totalmonarchs/countsdone)
+  
+
+derhamplotallsites <- ggplot(data = derhamtimeyear, 
+                     mapping = aes(x = year, y = monarchspercount)) +
+  geom_line()
+derhamplotallsites
+ggsave(plot = derhamplotallsites, filename = "output/derhamallyears.png")
