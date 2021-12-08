@@ -39,7 +39,7 @@ threeplot <- xercesplot %>%
 
 # Filter data to years 1998 - 2020
 threeplot <- threeplot %>%
-  filter(year %in% 2005:2020)
+  filter(year %in% 1998:2020)
 
 # Standardize effort in monarch observations
 threeplot <- threeplot %>%
